@@ -1,0 +1,68 @@
+{
+  "name": "ekoloko-new",
+  "version": "2.0.0",
+  "author": "FREEFUN-max",
+  "description": "ekoloko",
+  "private": true,
+  "license": "CC0-1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FREEFUN-max/-"
+  },
+  "scripts": {
+    "dev": "electron-webpack dev",
+    "compile": "electron-webpack",
+    "build": "npm run compile && electron-builder",
+    "dist": "npm run compile && electron-builder"
+  },
+  "electronWebpack": {
+    "main": {
+      "webpackConfig": "webpack.additions.js"
+    }
+  },
+  "dependencies": {
+    "electron-updater": "4.3.9",
+    "source-map-support": "^0.5.16"
+  },
+  "devDependencies": {
+    "electron": "8.2.0",
+    "electron-builder": "^22.4.1",
+    "electron-webpack": "^2.8.2",
+    "webpack": "~4.42.1"
+  },
+  "build": {
+    "appId": "org.ekoloko",
+    "productName": "new_ekoloko",
+    "compression": "maximum",
+    "asar": true,
+    "afterPack": "./scripts/afterPack.js",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "FREEFUN-max",
+        "repo": "-"
+      }
+    ],
+    "extraResources": [
+      "./assets/**"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "extraResources": [
+        "./plugins/x64/**"
+      ]
+    },
+    "nsis": {
+      "artifactName": "${productName}-Setup-${version}.${ext}",
+      "include": "build/installer.nsh",
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": true,
+      "runAfterFinish": true
+    }
+  }
+}
